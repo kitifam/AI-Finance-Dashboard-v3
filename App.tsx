@@ -22,7 +22,7 @@ interface ProposalGroup {
 
 const STORAGE_KEY = 'fast_budget_csv_data';
 const FILENAME_KEY = 'fast_budget_filename';
-const APP_PASSWORD = '123456'; // Change this easily here
+const APP_PASSWORD = '9871'; // Change this easily here
 
 
 const App: React.FC = () => {
@@ -39,14 +39,14 @@ const App: React.FC = () => {
   const [loginError, setLoginError] = useState(false);
   const [isDataLoadedFromStorage, setIsDataLoadedFromStorage] = useState(false);
 
-  
+
   // UI State
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [showCatDropdown, setShowCatDropdown] = useState(false);
   const [isOptimizing, setIsOptimizing] = useState(false);
   const [isMultiYearMode, setIsMultiYearMode] = useState(false);
   const [isMultiMonthMode, setIsMultiMonthMode] = useState(false);
-  
+
   // Optimization Review State
   const [showReviewModal, setShowReviewModal] = useState(false);
   const [proposals, setProposals] = useState<ProposalGroup[]>([]);
@@ -223,7 +223,7 @@ const App: React.FC = () => {
       const uniqueMap = new Map<string, number[]>();
       const uniquePayloads: { id: number; category: string; note: string; account: string }[] = [];
       allData.forEach((t, idx) => {
-        const noteSnippet = t.note.substring(0, 40).replace(/;/g, ' '); 
+        const noteSnippet = t.note.substring(0, 40).replace(/;/g, ' ');
         const signature = `${t.category}|${noteSnippet}|${t.account}`;
         if (!uniqueMap.has(signature)) {
           uniqueMap.set(signature, [idx]);
@@ -355,11 +355,11 @@ const App: React.FC = () => {
           </div>
           <h2 className="text-2xl font-black text-gray-800 mb-2 text-center">Protected Access</h2>
           <p className="text-gray-500 text-sm mb-8 text-center px-4">Your financial data is stored locally in this browser. Please enter your password to continue.</p>
-          
+
           <form onSubmit={handleLogin} className="w-full space-y-4">
             <div className="relative">
-              <input 
-                type="password" 
+              <input
+                type="password"
                 value={passwordInput}
                 onChange={(e) => setPasswordInput(e.target.value)}
                 placeholder="••••••"
@@ -368,7 +368,7 @@ const App: React.FC = () => {
               />
               {loginError && <p className="text-red-500 text-xs mt-2 text-center font-bold">Incorrect password. Please try again.</p>}
             </div>
-            <button 
+            <button
               type="submit"
               className="w-full py-4 bg-gradient-to-r from-[#4A148C] to-[#7c43bd] text-white rounded-2xl font-black shadow-lg hover:shadow-xl hover:scale-[1.02] active:scale-[0.98] transition-all"
             >
@@ -391,29 +391,29 @@ const App: React.FC = () => {
   return (
     <div className="flex bg-[#F3E5F5] min-h-screen font-sans text-gray-800 overflow-x-hidden">
 
-      
+
       {/* Main Content */}
       <div className={`flex-1 p-4 md:p-6 min-w-0 transition-all duration-300 ${isSidebarOpen ? 'lg:mr-[380px]' : ''}`}>
-        
+
         {/* Header */}
         <div className="bg-white p-4 md:p-6 rounded-xl shadow-[0_4px_20px_rgba(74,20,140,0.08)] mb-6 flex flex-col gap-6 max-w-full">
-          
+
           <div className="flex flex-col lg:flex-row justify-between lg:items-center gap-4">
             <h2 className="text-xl md:text-2xl font-bold text-[#4A148C] flex items-center gap-3 shrink-0">
-                <PieChart /><span>Finance Dashboard</span>
+              <PieChart /><span>Finance Dashboard</span>
             </h2>
 
             <div className="flex flex-wrap items-center gap-3">
               {/* Year Selector Group */}
               <div className="flex items-center gap-1 bg-gray-50 rounded-full p-1 border border-gray-200 flex-1 md:flex-none">
-                 <button 
+                <button
                   onClick={toggleAllYears}
                   className={`p-2 rounded-full transition-all shrink-0 ${yearsAllSelected ? 'bg-[#4A148C] text-white' : 'bg-white text-gray-400 hover:text-[#4A148C]'}`}
                   title="Toggle All Years"
                 >
                   <CalendarCheck size={18} />
                 </button>
-                <button 
+                <button
                   onClick={() => setIsMultiYearMode(!isMultiYearMode)}
                   className={`p-2 rounded-full transition-all shrink-0 ${isMultiYearMode ? 'bg-[#4A148C] text-white' : 'bg-white text-gray-400 hover:text-[#4A148C]'}`}
                   title="Toggle Multi-Selection"
@@ -422,35 +422,35 @@ const App: React.FC = () => {
                 </button>
 
                 <div className="flex items-center gap-1 min-w-0">
-                  <button onClick={scrollYearLeft} className="px-1 text-gray-400 hover:text-[#4A148C]"><ChevronLeft size={16}/></button>
-                  <div 
+                  <button onClick={scrollYearLeft} className="px-1 text-gray-400 hover:text-[#4A148C]"><ChevronLeft size={16} /></button>
+                  <div
                     ref={yearScrollRef}
                     className="flex gap-1 px-1 overflow-x-auto scrollbar-hide no-scrollbar max-w-[150px] md:max-w-[400px]"
                     style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
                   >
-                      {availableYears.map(y => (
-                        <button 
-                          key={y} 
-                          onClick={() => handleYearClick(y)}
-                          className={`px-3 py-1 rounded-full text-xs md:text-sm transition-all shrink-0 ${filters.years.has(y) ? 'bg-[#4A148C] text-white font-bold shadow' : 'text-gray-600 hover:bg-gray-200'}`}
-                        >
-                          {y}
-                        </button>
-                      ))}
+                    {availableYears.map(y => (
+                      <button
+                        key={y}
+                        onClick={() => handleYearClick(y)}
+                        className={`px-3 py-1 rounded-full text-xs md:text-sm transition-all shrink-0 ${filters.years.has(y) ? 'bg-[#4A148C] text-white font-bold shadow' : 'text-gray-600 hover:bg-gray-200'}`}
+                      >
+                        {y}
+                      </button>
+                    ))}
                   </div>
-                  <button onClick={scrollYearRight} className="px-1 text-gray-400 hover:text-[#4A148C]"><ChevronRight size={16}/></button>
+                  <button onClick={scrollYearRight} className="px-1 text-gray-400 hover:text-[#4A148C]"><ChevronRight size={16} /></button>
                 </div>
               </div>
 
               {/* Categories Button */}
               <div className="relative shrink-0">
-                <button 
+                <button
                   onClick={() => setShowCatDropdown(!showCatDropdown)}
                   className={`flex items-center gap-2 px-3 py-2 rounded-lg border transition-colors text-sm font-medium ${filters.excludedCategories.size > 0 ? 'bg-[#4A148C] text-white border-[#4A148C]' : 'bg-white text-[#4A148C] border-[#4A148C] hover:bg-[#F3E5F5]'}`}
                 >
-                  <Filter size={16} /> 
+                  <Filter size={16} />
                   <span className="hidden sm:inline">Categories</span>
-                  {filters.excludedCategories.size > 0 && 
+                  {filters.excludedCategories.size > 0 &&
                     <span className="ml-1 bg-white/20 px-1.5 py-0.5 rounded text-xs font-bold">
                       {availableCategories.size - filters.excludedCategories.size}
                     </span>
@@ -483,14 +483,14 @@ const App: React.FC = () => {
           <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 border-t border-gray-100 pt-4">
             {/* Month Selector Group */}
             <div className="flex items-center gap-1 bg-gray-50 rounded-full p-1 border border-gray-200 overflow-hidden w-full md:w-auto">
-               <button 
+              <button
                 onClick={toggleAllMonths}
                 className={`p-2 rounded-full transition-all shrink-0 ${monthsAllSelected ? 'bg-[#4A148C] text-white' : 'bg-white text-gray-400 hover:text-[#4A148C]'}`}
                 title="Toggle All Months"
               >
                 <ListChecks size={18} />
               </button>
-              <button 
+              <button
                 onClick={() => setIsMultiMonthMode(!isMultiMonthMode)}
                 className={`p-2 rounded-full transition-all shrink-0 ${isMultiMonthMode ? 'bg-[#4A148C] text-white' : 'bg-white text-gray-400 hover:text-[#4A148C]'}`}
                 title="Toggle Multi-Month Mode"
@@ -508,18 +508,18 @@ const App: React.FC = () => {
             </div>
 
             <div className="flex items-start gap-2 w-full md:w-auto justify-end pt-1">
-              <button 
-                onClick={handleAIOptimize} 
-                disabled={isOptimizing || allData.length === 0} 
+              <button
+                onClick={handleAIOptimize}
+                disabled={isOptimizing || allData.length === 0}
                 className={`flex-1 md:flex-none flex items-center justify-center gap-2 px-4 py-2 rounded-lg transition-all text-xs md:text-sm font-medium h-[40px] ${isOptimizing ? 'bg-gray-100 text-gray-400' : 'bg-gradient-to-r from-purple-600 to-indigo-600 text-white hover:shadow-lg'}`}
               >
                 {isOptimizing ? <Sparkles size={16} className="animate-spin" /> : <Sparkles size={16} />}
                 <span>{isOptimizing ? 'AI Analyzing...' : 'AI Category'}</span>
               </button>
 
-              <button 
-                onClick={handleDownloadCSV} 
-                disabled={allData.length === 0} 
+              <button
+                onClick={handleDownloadCSV}
+                disabled={allData.length === 0}
                 className="flex items-center gap-2 px-4 py-2 bg-[#2E7D32] text-white rounded-lg hover:bg-[#1B5E20] transition-colors text-xs md:text-sm font-medium shadow disabled:opacity-50 h-[40px]"
               >
                 <Download size={16} /> <span className="hidden sm:inline">Save CSV</span>
@@ -527,7 +527,7 @@ const App: React.FC = () => {
 
               {allData.length > 0 && (
                 <div className="flex flex-col items-end gap-1">
-                  <button 
+                  <button
                     onClick={() => fileInputRef.current?.click()}
                     className="flex items-center gap-2 px-3 py-2 bg-white text-[#4A148C] border border-[#4A148C] rounded-lg hover:bg-[#F3E5F5] transition-colors text-xs md:text-sm font-medium h-[40px]"
                     title="Update CSV with new data"
@@ -558,19 +558,19 @@ const App: React.FC = () => {
 
         {allData.length > 0 ? (
           <>
-            <DashboardCharts 
-              allTransactions={allData} 
-              filters={filters} 
+            <DashboardCharts
+              allTransactions={allData}
+              filters={filters}
               drillDown={drillDown}
-              onDrillDown={(field: keyof DrillDownState, value: any) => setDrillDown(prev => ({ ...prev, [field]: value }))} 
+              onDrillDown={(field: keyof DrillDownState, value: any) => setDrillDown(prev => ({ ...prev, [field]: value }))}
             />
             <TransactionTable data={tableData} />
           </>
         ) : (
           <div className="bg-white rounded-2xl p-12 text-center shadow-sm border border-dashed border-purple-200 flex flex-col items-center gap-4">
-             <div className="w-16 h-16 bg-purple-50 text-[#4A148C] rounded-full flex items-center justify-center"><Upload size={32} /></div>
-             <div><h3 className="text-xl font-bold text-gray-800 mb-2">No Data Available</h3><p className="text-gray-500 max-w-sm mx-auto">Upload your CSV file with 'Date' and 'Value (THB)' columns to see your financial analytics.</p></div>
-             <label className="mt-4 px-8 py-3 bg-[#4A148C] text-white rounded-xl font-bold cursor-pointer hover:bg-[#7c43bd] transition-all shadow-lg hover:scale-105 active:scale-95">Select CSV File<input type="file" accept=".csv" className="hidden" onChange={handleFileUpload} /></label>
+            <div className="w-16 h-16 bg-purple-50 text-[#4A148C] rounded-full flex items-center justify-center"><Upload size={32} /></div>
+            <div><h3 className="text-xl font-bold text-gray-800 mb-2">No Data Available</h3><p className="text-gray-500 max-w-sm mx-auto">Upload your CSV file with 'Date' and 'Value (THB)' columns to see your financial analytics.</p></div>
+            <label className="mt-4 px-8 py-3 bg-[#4A148C] text-white rounded-xl font-bold cursor-pointer hover:bg-[#7c43bd] transition-all shadow-lg hover:scale-105 active:scale-95">Select CSV File<input type="file" accept=".csv" className="hidden" onChange={handleFileUpload} /></label>
           </div>
         )}
       </div>
