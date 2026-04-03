@@ -403,9 +403,9 @@ const App: React.FC = () => {
               <PieChart /><span>Finance Dashboard</span>
             </h2>
 
-            <div className="flex flex-wrap items-center gap-3">
+            <div className="flex items-center gap-2 md:gap-3 flex-1 min-w-0 w-full justify-end">
               {/* Year Selector Group */}
-              <div className="flex items-center gap-1 bg-gray-50 rounded-full p-1 border border-gray-200 flex-1 md:flex-none">
+              <div className="flex items-center gap-1 bg-gray-50 rounded-full p-1 border border-gray-200 flex-1 min-w-0">
                 <button
                   onClick={toggleAllYears}
                   className={`p-2 rounded-full transition-all shrink-0 ${yearsAllSelected ? 'bg-[#4A148C] text-white' : 'bg-white text-gray-400 hover:text-[#4A148C]'}`}
@@ -421,11 +421,11 @@ const App: React.FC = () => {
                   <Layers size={18} />
                 </button>
 
-                <div className="flex items-center gap-1 min-w-0">
-                  <button onClick={scrollYearLeft} className="px-1 text-gray-400 hover:text-[#4A148C]"><ChevronLeft size={16} /></button>
+                <div className="flex items-center gap-1 min-w-0 flex-1">
+                  <button onClick={scrollYearLeft} className="px-1 shrink-0 text-gray-400 hover:text-[#4A148C]"><ChevronLeft size={16} /></button>
                   <div
                     ref={yearScrollRef}
-                    className="flex gap-1 px-1 overflow-x-auto scrollbar-hide no-scrollbar max-w-[150px] md:max-w-[400px]"
+                    className="flex flex-nowrap gap-1 px-1 overflow-x-auto scrollbar-hide no-scrollbar w-full"
                     style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
                   >
                     {availableYears.map(y => (
@@ -514,27 +514,29 @@ const App: React.FC = () => {
                 className={`flex-1 md:flex-none flex items-center justify-center gap-2 px-4 py-2 rounded-lg transition-all text-xs md:text-sm font-medium h-[40px] ${isOptimizing ? 'bg-gray-100 text-gray-400' : 'bg-gradient-to-r from-purple-600 to-indigo-600 text-white hover:shadow-lg'}`}
               >
                 {isOptimizing ? <Sparkles size={16} className="animate-spin" /> : <Sparkles size={16} />}
-                <span>{isOptimizing ? 'AI Analyzing...' : 'AI Category'}</span>
-              </button>
-
-              <button
-                onClick={handleDownloadCSV}
-                disabled={allData.length === 0}
-                className="flex items-center gap-2 px-4 py-2 bg-[#2E7D32] text-white rounded-lg hover:bg-[#1B5E20] transition-colors text-xs md:text-sm font-medium shadow disabled:opacity-50 h-[40px]"
-              >
-                <Download size={16} /> <span className="hidden sm:inline">Save CSV</span>
+                <span>{isOptimizing ? 'AI...' : 'AI Cat.'}</span>
               </button>
 
               {allData.length > 0 && (
                 <div className="flex flex-col items-end gap-1">
-                  <button
-                    onClick={() => fileInputRef.current?.click()}
-                    className="flex items-center gap-2 px-3 py-2 bg-white text-[#4A148C] border border-[#4A148C] rounded-lg hover:bg-[#F3E5F5] transition-colors text-xs md:text-sm font-medium h-[40px]"
-                    title="Update CSV with new data"
-                  >
-                    <Upload size={16} /> <span className="hidden sm:inline">Update CSV</span>
-                    <input type="file" ref={fileInputRef} accept=".csv" className="hidden" onChange={handleFileUpload} />
-                  </button>
+                  <div className="flex items-center gap-2">
+                    <button
+                      onClick={handleDownloadCSV}
+                      disabled={allData.length === 0}
+                      className="flex items-center gap-2 px-3 py-2 bg-[#2E7D32] text-white rounded-lg hover:bg-[#1B5E20] transition-colors text-xs md:text-sm font-medium shadow disabled:opacity-50 h-[40px]"
+                      title="Save CSV"
+                    >
+                      <Download size={16} /> <span className="hidden sm:inline">Save</span>
+                    </button>
+                    <button
+                      onClick={() => fileInputRef.current?.click()}
+                      className="flex items-center gap-2 px-3 py-2 bg-white text-[#4A148C] border border-[#4A148C] rounded-lg hover:bg-[#F3E5F5] transition-colors text-xs md:text-sm font-medium h-[40px]"
+                      title="Upload CSV"
+                    >
+                      <Upload size={16} /> <span className="hidden sm:inline">Upload</span>
+                      <input type="file" ref={fileInputRef} accept=".csv" className="hidden" onChange={handleFileUpload} />
+                    </button>
+                  </div>
                   {activeFilename && (
                     <span className="text-[10px] text-gray-400 flex items-center gap-1 italic">
                       <FileText size={10} /> {activeFilename}
