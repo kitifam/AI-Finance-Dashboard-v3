@@ -1,5 +1,5 @@
 {
-  "name": "AI Finance Dashboard 2",
-  "description": "A financial dashboard with Year/Month filtering, CSV upload, and a context-aware AI assistant powered by Gemini.",
+  "name": "AI Finance Dashboard v3.0",
+  "description": "A financial dashboard with Year/Month filtering, CSV upload, and a context-aware AI assistant powered by Gemini. Optimized for mobile with Bottom Sheets.",
   "requestFramePermissions": []
 }
